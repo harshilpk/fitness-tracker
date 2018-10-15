@@ -8,7 +8,12 @@ import { MatButtonModule,
          MatCheckboxModule,
          MatSidenavModule,
          MatToolbarModule,
-         MatListModule} from '@angular/material';
+         MatListModule,
+         MatTabsModule,
+         MatCardModule,
+         MatSelectModule,
+         MatProgressSpinnerModule,
+         MatDialogModule} from '@angular/material';
 
 @NgModule({
   imports: [
@@ -21,7 +26,12 @@ import { MatButtonModule,
     MatCheckboxModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatListModule
+    MatListModule,
+    MatTabsModule,
+    MatCardModule,
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    MatDialogModule
   ],
   exports: [
     MatButtonModule,
@@ -33,7 +43,12 @@ import { MatButtonModule,
     MatCheckboxModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatListModule
+    MatListModule,
+    MatTabsModule,
+    MatCardModule,
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    MatDialogModule
   ]
 })
 export class MaterialModule {
