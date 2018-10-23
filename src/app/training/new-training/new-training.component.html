@@ -19,7 +19,7 @@
               <mat-option  value="burpees">
                   Burpees
               </mat-option> -->
-              <mat-option *ngFor="let training of trainings" [value]="training.id">
+              <mat-option *ngFor="let training of trainings" [value]="training.id"> <!--removed async pipe-->
                 {{ training.name }}
               </mat-option>
             </mat-select>
