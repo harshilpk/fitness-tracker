@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { TrainingService } from '../training/training.service';
 import { subscribeOn } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material';
+import { UIService } from '../shared/ui.service';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +15,8 @@ export class AuthService {
   private isAuthenticated = false;
   authChange = new Subject<boolean>();
 
-  constructor(private router: Router, private afAuth: AngularFireAuth, private trainingService: TrainingService) {}
+  constructor(private router: Router, private afAuth: AngularFireAuth, private trainingService: TrainingService,
+              private matSnackBar: MatSnackBar, private uiService: UIService) {}
 
   initAuthListener() {
     this.afAuth.authState.subscribe(user => {
@@ -37,14 +40,19 @@ export class AuthService {
     //   email: authData.email,
     //   userId: Math.round(Math.random() * 10000).toString()
     // };
+    this.uiService.loadingStateChanged.next(true);
     this.afAuth.auth.createUserWithEmailAndPassword(
       authData.email,
       authData.password
     ).then(result => {
-      console.log(result);
+      this.uiService.loadingStateChanged.next(false);
     })
     .catch(error => {
-      console.log(error);
+      this.uiService.loadingStateChanged.next(false);
+      this.uiService.showSnackBar(error.message, null, 3000);
+      // this.matSnackBar.open(error.message, null, {
+      //   duration: 3000
+      // });
     });
     // this.authSuccessfully();
   }
@@ -54,14 +62,19 @@ export class AuthService {
     //   email: authData.email,
     //   userId: Math.round(Math.random() * 10000).toString()
     // };
+    this.uiService.loadingStateChanged.next(true);
     this.afAuth.auth.signInWithEmailAndPassword(
       authData.email,
       authData.password
     ).then(result => {
-      console.log(result);
+      this.uiService.loadingStateChanged.next(false);
     })
     .catch(error => {
-      console.log(error);
+      this.uiService.loadingStateChanged.next(false);
+      this.uiService.showSnackBar(error.message, null, 3000);
+      // this.matSnackBar.open(error.message, null, {
+      //   duration: 3000
+      // });
     });
     // this.authSuccessfully();
     // this.authSuccessfully();

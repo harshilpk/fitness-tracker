@@ -9,14 +9,14 @@ import { Subscription } from 'rxjs';
 })
 export class SidenavListComponent implements OnInit, OnDestroy {
   @Output() closeSidenav = new EventEmitter<void>();
-  isAuth: boolean;
+  isAuth = false;
   authSubscription: Subscription;
 
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.authSubscription = this.authService.authChange.subscribe((authStatus) => {
-      this.isAuth = true;
+      this.isAuth = authStatus;
     });
   }
 

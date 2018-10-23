@@ -19,9 +19,18 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
   // trainings: Observable<Exercise[]>;
   trainings: Exercise[];
   trainingSubscription: Subscription;
+  isLoading = true;
+
   ngOnInit() {
     // this.trainings = this.trainingService.getAvailableExercises();
-    this.trainingSubscription = this.trainingService.exercisesChanged.subscribe(exercises => this.trainings = exercises);
+    this.trainingSubscription = this.trainingService.exercisesChanged.subscribe(exercises => {
+      this.isLoading = false;
+      this.trainings = exercises;
+    });
+    this.fetchExercises();
+  }
+
+  fetchExercises() {
     this.trainingService.getAvailableExercises();
   }
 
