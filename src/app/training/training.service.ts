@@ -31,11 +31,12 @@ export class TrainingService {
     .pipe(map(docData => {
      // throw(new Error());
       return docData.map(doc => {
+        console.log(doc);
         return {
           id: doc.payload.doc.id,
-          name: doc.payload.doc.data().name,
-          duration: doc.payload.doc.data().duration,
-          calories: doc.payload.doc.data().calories
+          name: doc.payload.doc.data()['name'],
+          duration: doc.payload.doc.data()['duration'],
+          calories: doc.payload.doc.data()['calories']
         };
       });
     })).subscribe((exercises: Exercise[]) => {
