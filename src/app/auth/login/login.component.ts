@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   isLoading$: Observable<boolean>;
   private loadingSubscription: Subscription;
   constructor(private authService: AuthService, private uiService: UIService,
-              private  store: Store<{ui: fromRoot.State }>) { }
+              private  store: Store<fromRoot.State>) { }
 
   ngOnInit() {
     // this.isLoading$ = this.store.pipe(map(state => state.ui.isLoading));

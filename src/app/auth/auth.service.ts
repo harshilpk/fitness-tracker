@@ -19,7 +19,7 @@ export class AuthService {
   authChange = new Subject<boolean>();
 
   constructor(private router: Router, private afAuth: AngularFireAuth, private trainingService: TrainingService,
-              private matSnackBar: MatSnackBar, private uiService: UIService, private store: Store<{ui: fromRoot.State}>) {}
+              private matSnackBar: MatSnackBar, private uiService: UIService, private store: Store<fromRoot.State>) {}
 
   initAuthListener() {
     this.afAuth.authState.subscribe(user => {
