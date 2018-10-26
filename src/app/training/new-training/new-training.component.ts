@@ -5,7 +5,9 @@ import { NgForm } from '@angular/forms';
 // import { AngularFirestore } from 'angularfire2/firestore';
 // import { Observable } from 'rxjs';
 // import { map } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../app.reducer';
 
 @Component({
   selector: 'app-new-training',
@@ -14,19 +16,22 @@ import { Subscription } from 'rxjs';
 })
 export class NewTrainingComponent implements OnInit, OnDestroy {
   // @Output() trainingStart = new EventEmitter<void>();
-  constructor(private trainingService: TrainingService) { }
+  constructor(private trainingService: TrainingService,
+              private store: Store<fromRoot.State>) { }
   // trainings: Exercise[] = [];
   // trainings: Observable<Exercise[]>;
   trainings: Exercise[];
   trainingSubscription: Subscription;
-  isLoading = true;
+  // isLoading = true;
+  isLoading$: Observable<boolean>;
 
   ngOnInit() {
     // this.trainings = this.trainingService.getAvailableExercises();
     this.trainingSubscription = this.trainingService.exercisesChanged.subscribe(exercises => {
-      this.isLoading = false;
+      // this.isLoading = false;
       this.trainings = exercises;
     });
+    this.isLoading$ = this.store.select(fromRoot.getIsLoading);
     this.fetchExercises();
   }
 
