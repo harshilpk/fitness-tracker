@@ -1,7 +1,11 @@
+import { SecretKey } from '../../SecretKey/secretapikey';
+
+const secretKey = new SecretKey;
+
 export const environment = {
   production: true,
   firebase: {
-    apiKey: 'AIzaSyByNKDHb6_A_FQH83qzFBn0ZasKxQ8WjQQ',
+    apiKey: this.secretKey.getApiKey(),
     authDomain: 'ng-fitness-tracker-f3fee.firebaseapp.com',
     databaseURL: 'https://ng-fitness-tracker-f3fee.firebaseio.com',
     projectId: 'ng-fitness-tracker-f3fee',
