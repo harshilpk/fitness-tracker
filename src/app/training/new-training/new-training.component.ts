@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
 // import { map } from 'rxjs/operators';
 import { Subscription, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import * as fromTraining from '../training.reducer';
 import * as fromRoot from '../../app.reducer';
 
 @Component({
@@ -14,23 +15,25 @@ import * as fromRoot from '../../app.reducer';
   templateUrl: './new-training.component.html',
   styleUrls: ['./new-training.component.css']
 })
-export class NewTrainingComponent implements OnInit, OnDestroy {
+export class NewTrainingComponent implements OnInit {
   // @Output() trainingStart = new EventEmitter<void>();
   constructor(private trainingService: TrainingService,
-              private store: Store<fromRoot.State>) { }
+              private store: Store<fromTraining.State>) { }
   // trainings: Exercise[] = [];
   // trainings: Observable<Exercise[]>;
-  trainings: Exercise[];
-  trainingSubscription: Subscription;
+  // trainings: Exercise[];
+  trainings$: Observable<Exercise[]>;
+  // trainingSubscription: Subscription;
   // isLoading = true;
   isLoading$: Observable<boolean>;
 
   ngOnInit() {
     // this.trainings = this.trainingService.getAvailableExercises();
-    this.trainingSubscription = this.trainingService.exercisesChanged.subscribe(exercises => {
-      // this.isLoading = false;
-      this.trainings = exercises;
-    });
+    // this.trainingSubscription = this.trainingService.exercisesChanged.subscribe(exercises => {
+    //   // this.isLoading = false;
+    //   this.trainings = exercises;
+    // });
+    this.trainings$ = this.store.select(fromTraining.getAvailableTrainings);
     this.isLoading$ = this.store.select(fromRoot.getIsLoading);
     this.fetchExercises();
   }
@@ -44,9 +47,9 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
     this.trainingService.startExercise(form.value.training);
   }
 
-  ngOnDestroy() {
-    if (this.trainingSubscription) {
-      this.trainingSubscription.unsubscribe();
-    }
-  }
+  // ngOnDestroy() {
+  //   if (this.trainingSubscription) {
+  //     this.trainingSubscription.unsubscribe();
+  //   }
+  // }
 }

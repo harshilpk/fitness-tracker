@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { TrainingService } from '../training/training.service';
-import { subscribeOn } from 'rxjs/operators';
+// import { subscribeOn } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
 import { UIService } from '../shared/ui.service';
 import { Store } from '@ngrx/store';

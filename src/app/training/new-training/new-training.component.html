@@ -5,7 +5,7 @@
       Let's start a workout!!
     </mat-card-title>
     <mat-card-content fxLayoutAlign="center">
-        <mat-form-field *ngIf="!(isLoading$ | async) && trainings">
+        <mat-form-field *ngIf="!(isLoading$ | async) && trainings$ | async">
             <mat-select placeholder="Your Trainings" ngModel name="training" required>
               <!-- <mat-option  value="crunches">
                 Crunches
@@ -19,17 +19,17 @@
               <mat-option  value="burpees">
                   Burpees
               </mat-option> -->
-              <mat-option *ngFor="let training of trainings" [value]="training.id"> <!--removed async pipe-->
+              <mat-option *ngFor="let training of trainings$ | async" [value]="training.id"> <!--removed async pipe-->
                 {{ training.name }}
               </mat-option>
             </mat-select>
 
-          </mat-form-field>
+          </mat-form-field>s
           <mat-spinner *ngIf="isLoading$ | async"></mat-spinner>
     </mat-card-content>
     <mat-card-actions *ngIf="!(isLoading$ | async)" fxLayoutAlign="center">
-      <button *ngIf="trainings" type="Submit" mat-button color="primary" [disabled]="f.invalid">Start</button>
-      <button *ngIf="!trainings"type="Submit" mat-button color="primary" (click)="fetchExercises()">Fetch Again</button>
+      <button *ngIf="trainings$ | async" type="Submit" mat-button color="primary" [disabled]="f.invalid">Start</button>
+      <button *ngIf="!(trainings$ | async)"type="Submit" mat-button color="primary" (click)="fetchExercises()">Fetch Again</button>
     </mat-card-actions>
   </mat-card>
 </form>
